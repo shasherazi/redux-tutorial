@@ -27,10 +27,18 @@ const cartSlice = createSlice({
       const cartItem = state.cartItems.find((item) => item.id === payload.id);
       cartItem.amount -= 1;
     },
+    calculateTotal: (state) => {
+      state.total = state.cartItems.reduce((acc, item) => {
+        return acc + item.amount * item.price;
+      }, 0);
+      state.amount = state.cartItems.reduce((acc, item) => {
+        return acc + item.amount;
+      }, 0);
+    },
   },
 });
 
-export const { clearCart, removeItem, increment, decrement } =
+export const { clearCart, removeItem, increment, decrement, calculateTotal } =
   cartSlice.actions;
 
 export default cartSlice.reducer;
